@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Main Menu</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand">Vehicle Sales System</span>
+    <div class="d-flex">
+      <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container my-5">
+  <h2 class="mb-4">Dashboard</h2>
+  <div class="row text-center">
+    <div class="col-md-4 mb-3">
+      <div class="card p-3 shadow-sm">
+        <h5>Total Vehicles</h5>
+        <h2 th:text="${vehicles}">0</h2>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card p-3 shadow-sm">
+        <h5>Sold Vehicles</h5>
+        <h2 th:text="${sold}">0</h2>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card p-3 shadow-sm">
+        <h5>Total Sales</h5>
+        <h2 th:text="${sales}">0</h2>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 d-flex justify-content-center gap-3">
+    <a href="/vehicles" class="btn btn-primary">Manage Vehicles</a>
+    <a href="/sales" class="btn btn-success">Sales</a>
+    <a href="/dashboard" class="btn btn-secondary">API Dashboard</a>
+  </div>
+</div>
+</body>
+</html>
