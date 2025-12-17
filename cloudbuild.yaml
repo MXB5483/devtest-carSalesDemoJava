@@ -1,0 +1,24 @@
+steps:
+  # 1. Build and Push the container image using Jib
+  # We use a Maven builder image that includes Java 17
+  - name: 'maven:3.9-eclipse-temurin-17'
+    entrypoint: 'mvn'
+    args: ['compile', 'jib:build']
+
+  # 2. Deploy to Cloud Run
+  # We use the standard gcloud builder to deploy the image Jib just pushed
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'vehicle-sales-demo' # Service Name
+      - '--image'
+      - 'us-east1-docker.pkg.dev/np-te-os-perftool/broadcom-demo-vehicles-repo/vehicle-sales-system' # Must match pom.xml
+      - '--region'
+      - 'us-east1'
+      - '--allow-unauthenticated' # Remove this if using IAP
+
+# 3. Logging configuration
+options:
+  logging: CLOUD_LOGGING_ONLY
