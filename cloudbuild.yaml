@@ -12,7 +12,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'vehicle-sales-demo' # Service Name
+      - 'vehicle-sales-system' # Service Name
       - '--image'
       - 'us-east1-docker.pkg.dev/np-te-os-perftool/broadcom-demo-vehicles-repo/vehicle-sales-system' # Must match pom.xml
       - '--region'
