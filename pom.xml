@@ -54,7 +54,7 @@
             <image>eclipse-temurin:17-jre</image>
           </from>
           <to>
-            <image>gcr.io/831017020294/${project.artifactId}</image>
+            <image>gcr.io/np-te-os-perftool/${project.artifactId}</image>
             <tags>
               <tag>${project.version}</tag>
               <tag>latest</tag>
