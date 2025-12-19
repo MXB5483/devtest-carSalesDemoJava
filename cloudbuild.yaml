@@ -36,8 +36,8 @@ steps:
 
 # Configuration Variables
 substitutions:
-  _REGION: us-east1          # Must match the location where you created the repo
-  _REPOSITORY: vehicles-sales-repo   # Must match the name of the Artifact Registry repo you created
+  _REGION: us-east1 # Must match the location where you created the repo
+  _REPOSITORY: vehicles-sales-repo # Must match the name of the Artifact Registry repo you created
 
 options:
   logging: CLOUD_LOGGING_ONLY
