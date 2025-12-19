@@ -1,5 +1,5 @@
 steps:
-  # 1. Cache Maven dependencies to speed up the build
+  # 1. Cache Maven dependencies
   - name: 'maven:3.9-eclipse-temurin-17'
     entrypoint: 'mvn'
     args: ['dependency:go-offline']
@@ -7,37 +7,41 @@ steps:
       - name: 'maven-repo'
         path: '/root/.m2'
 
-  # 2. Build the image using Jib and push to Container Registry
+  # 2. Build image using Jib and push to Artifact Registry
   - name: 'maven:3.9-eclipse-temurin-17'
     entrypoint: 'mvn'
     args: 
       - 'compile'
       - 'com.google.cloud.tools:jib-maven-plugin:build'
-      - '-Dimage=gcr.io/$PROJECT_ID/vehicle-sales-system'
+      # UPDATED: Points to Artifact Registry format
+      - '-Dimage=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/vehicle-sales-system'
       - '-Djib.to.tags=latest,$SHORT_SHA'
     volumes:
       - name: 'maven-repo'
         path: '/root/.m2'
 
-  # 3. Deploy the container to Cloud Run
+  # 3. Deploy to Cloud Run from Artifact Registry
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'vehicle-sales-system'                # Service Name
-      - '--image=gcr.io/$PROJECT_ID/vehicle-sales-system'
-      - '--region=${_REGION}'                 # Region defined in substitutions
+      - 'vehicle-sales-system'
+      # UPDATED: Points to the Artifact Registry image built in Step 2
+      - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/vehicle-sales-system'
+      - '--region=${_REGION}'
       - '--platform=managed'
-      - '--allow-unauthenticated'             # Makes the service publicly accessible
-      - '--port=8080'                         # Default Spring Boot port
+      - '--allow-unauthenticated'
+      - '--port=8080'
 
-# Define substitutions to keep the config flexible
+# Configuration Variables
 substitutions:
-  _REGION: us-east1                        # Default region (change if needed)
+  _REGION: us-east1          # Must match the location where you created the repo
+  _REPOSITORY: vehicle_sales_repo   # Must match the name of the Artifact Registry repo you created
 
 options:
   logging: CLOUD_LOGGING_ONLY
 
 images:
-  - 'gcr.io/$PROJECT_ID/vehicle-sales-system'
+  # UPDATED: Ensures Cloud Build knows this is the output artifact
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/vehicle-sales-system'
