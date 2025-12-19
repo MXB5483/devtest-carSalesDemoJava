@@ -1,24 +1,43 @@
 steps:
-  # 1. Build and Push the container image using Jib
-  # We use a Maven builder image that includes Java 17
+  # 1. Cache Maven dependencies to speed up the build
   - name: 'maven:3.9-eclipse-temurin-17'
     entrypoint: 'mvn'
-    args: ['compile', 'jib:build']
+    args: ['dependency:go-offline']
+    volumes:
+      - name: 'maven-repo'
+        path: '/root/.m2'
 
-  # 2. Deploy to Cloud Run
-  # We use the standard gcloud builder to deploy the image Jib just pushed
+  # 2. Build the image using Jib and push to Container Registry
+  - name: 'maven:3.9-eclipse-temurin-17'
+    entrypoint: 'mvn'
+    args: 
+      - 'compile'
+      - 'com.google.cloud.tools:jib-maven-plugin:build'
+      - '-Dimage=gcr.io/$PROJECT_ID/vehicle-sales-system'
+      - '-Djib.to.tags=latest,$SHORT_SHA'
+    volumes:
+      - name: 'maven-repo'
+        path: '/root/.m2'
+
+  # 3. Deploy the container to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'vehicle-sales-demo' # Service Name
-      - '--image'
-      - 'us-east1-docker.pkg.dev/np-te-os-perftool/vehicles-sales-repo/vehicle-sales-system' # Must match pom.xml
-      - '--region'
-      - 'us-east1'
-      - '--allow-unauthenticated' # Remove this if using IAP
+      - 'vehicle-sales-system'                # Service Name
+      - '--image=gcr.io/$PROJECT_ID/vehicle-sales-system'
+      - '--region=${_REGION}'                 # Region defined in substitutions
+      - '--platform=managed'
+      - '--allow-unauthenticated'             # Makes the service publicly accessible
+      - '--port=8080'                         # Default Spring Boot port
 
-# 3. Logging configuration
+# Define substitutions to keep the config flexible
+substitutions:
+  _REGION: us-east1                        # Default region (change if needed)
+
 options:
   logging: CLOUD_LOGGING_ONLY
+
+images:
+  - 'gcr.io/$PROJECT_ID/vehicle-sales-system'
