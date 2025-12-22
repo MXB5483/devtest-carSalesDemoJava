@@ -48,21 +48,11 @@
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.4.1</version>
         <configuration>
-          <from>
-            <image>eclipse-temurin:17-jre</image>
-          </from>
           <to>
-            <image>gcr.io/np-te-os-perftool/${project.artifactId}</image>
-            <tags>
-              <tag>${project.version}</tag>
-              <tag>latest</tag>
-            </tags>
+            <image>us-east1-docker.pkg.dev/np-te-os-perftool/devtest-vehicleSalesApp-repo/vehicle-sales-system:${project.version}</image>
           </to>
-          <container>
-            <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-          </container>
         </configuration>
       </plugin>
     </plugins>
