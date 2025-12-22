@@ -51,7 +51,7 @@
         <version>3.4.1</version>
         <configuration>
           <to>
-            <image>us-east1-docker.pkg.dev/np-te-os-perftool/devtest-vehicleSalesApp-repo/vehicle-sales-system:${project.version}</image>
+            <image>us-east1-docker.pkg.dev/np-te-os-perftool/devtest-vehiclesalesapp-repo/vehicle-sales-system:${project.version}</image>
           </to>
         </configuration>
       </plugin>
