@@ -1,0 +1,25 @@
+steps:
+  # Step 1: Build and Push the image using Jib (Daemonless)
+  # Jib pushes directly to Artifact Registry defined in your pom.xml
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['compile', 'jib:build']
+
+  # Step 2: Deploy the container to Cloud Run
+  # We explicitly set the port to 8099 to match the Jib configuration
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'vehicle-sales-system'
+      - '--image=us-east1-docker.pkg.dev/np-te-os-perftool/vehicle-cicd-repo/vehicle-sales-system:latest'
+      - '--region=us-east1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--port=8099'
+      - '--set-env-vars=PORT=8099'
+
+# Configuration to speed up builds by caching Maven dependencies
+options:
+  logging: CLOUD_LOGGING_ONLY
+
