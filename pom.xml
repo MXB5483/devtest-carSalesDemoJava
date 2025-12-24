@@ -10,7 +10,7 @@
    <relativePath/>
  </parent>
  <groupId>com.broadcom.demo.vehicles</groupId>
- <artifactId>vehicle-console-repo</artifactId>
+ <artifactId>vehicle-cli-repo</artifactId>
  <version>3.0.0</version>
  <name>Vehicle Sales System v3</name>
  <properties>
@@ -54,7 +54,7 @@
             <image>eclipse-temurin:17-jre-alpine</image>
           </from>
           <to>
-            <image>us-east1-docker.pkg.dev/np-te-os-perftool/vehicle-console-repo/vehicle-sales-system</image>
+            <image>us-east1-docker.pkg.dev/np-te-os-perftool/vehicle-cli-repo/vehicle-sales-system</image>
             <tags>
               <tag>${project.version}</tag>
             </tags>
