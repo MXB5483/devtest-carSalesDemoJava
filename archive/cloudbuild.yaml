@@ -1,25 +1,31 @@
-steps:
-  # Step 1: Build and Push the image using Jib (Daemonless)
-  # Jib pushes directly to Artifact Registry defined in your pom.xml
-  - name: 'gcr.io/cloud-builders/mvn'
-    args: ['compile', 'jib:build']
+  # Step 1: Build and push the container image using Jib
+  - name: 'gcr.io/cloud-builders/mvn:3.9.6-eclipse-temurin-17'
+    args:
+      - 'compile'
+      - 'com.google.cloud.tools:jib-maven-plugin:3.4.1:build'
+      - '-Dimage=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_IMAGE_NAME}:$SHORT_SHA'
+    id: 'Build and Push'
 
-  # Step 2: Deploy the container to Cloud Run
-  # We explicitly set the port to 8099 to match the Jib configuration
+  # Step 2: Deploy the new image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
+    entrypoint: 'gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'vehicle-sales-system'
-      - '--image=us-east1-docker.pkg.dev/np-te-os-perftool/vehicle-cicd-repo/vehicle-sales-system:latest'
-      - '--region=us-east1'
-      - '--platform=managed'
+      - '${_SERVICE_NAME}'
+      - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_IMAGE_NAME}:$SHORT_SHA'
+      - '--region=${_REGION}'
+      - '--port=8080'
       - '--allow-unauthenticated'
-      - '--port=8099'
-      - '--set-env-vars=PORT=8099'
+    id: 'Deploy to Cloud Run'
 
-# Configuration to speed up builds by caching Maven dependencies
-options:
-  logging: CLOUD_LOGGING_ONLY
+# Define substitution variables
+substitutions:
+  _REGION: 'us-east1'
+  _REPO_NAME: 'vehicle-sales-repo-cicd'
+  _IMAGE_NAME: 'vehicle-sales-demo-cicd'
+  _SERVICE_NAME: 'vehicle-sales-service-cicd'
 
+# Specify the image that was built
+images:
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_IMAGE_NAME}:$SHORT_SHA'
