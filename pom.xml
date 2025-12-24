@@ -54,10 +54,9 @@
             <image>eclipse-temurin:17-jre-alpine</image>
           </from>
           <to>
-            <image>us-east1-docker.pkg.dev/np-te-os-perftool/vehicle-console-repo/vehicle-sales-system<:latest/image>
+            <image>us-east1-docker.pkg.dev/np-te-os-perftool/vehicle-console-repo/vehicle-sales-system/image>
             <tags>
               <tag>${project.version}</tag>
-              <tag>latest</tag>
             </tags>
           </to>
           <container>
