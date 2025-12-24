@@ -1,0 +1,17 @@
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/VehicleSalesApplication.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/config/AdditionalHttpConnectorConfig.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/config/DataInitializer.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/config/SecurityConfig.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/controller/DashboardController.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/controller/LoginController.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/controller/MenuController.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/controller/SalesApiController.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/controller/SalesController.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/controller/VehicleApiController.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/controller/VehicleController.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/model/Sale.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/model/Vehicle.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/repository/SaleRepository.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/repository/VehicleRepository.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/service/DynamicEndpointService.java
+/home/malik_beyah/devtest-carSalesDemoJava/src/main/java/com/broadcom/demo/vehicles/service/DynamicPropertiesService.java
