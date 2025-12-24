@@ -10,7 +10,7 @@
    <relativePath/>
  </parent>
  <groupId>com.broadcom.demo.vehicles</groupId>
- <artifactId>vehicle-console-repo</artifactId>
+ <artifactId>vehicle-sales-system</artifactId>
  <version>3.0.0</version>
  <name>Vehicle Sales System v3</name>
  <properties>
