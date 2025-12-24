@@ -14,9 +14,15 @@ public class AdditionalHttpConnectorConfig {
         return factory -> {
             Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
             connector.setScheme("http");
-            connector.setPort(8080);
+            connector.setPort(8081);
             connector.setSecure(false);
-            factory.addAdditionalTomcatConnectors(connector);
+            connector.setProperty("bindOnInit", "false");
+            try {
+                factory.addAdditionalTomcatConnectors(connector);
+            } catch (Exception e) {
+                // Log the exception but don't fail startup if additional connector fails
+                System.err.println("Warning: Failed to add additional HTTP connector: " + e.getMessage());
+            }
         };
     }
 }
