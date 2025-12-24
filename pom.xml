@@ -42,32 +42,14 @@
  <build>
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.4.2</version>
+        <version>3.4.1</version>
         <configuration>
-          <from>
-            <image>eclipse-temurin:17-jre-alpine</image>
-          </from>
-          <to>
-            <image>us-east1-docker.pkg.dev/np-te-os-perftool/vehicle-cli-repo/vehicle-sales-system</image>
-            <tags>
-              <tag>${project.version}</tag>
-            </tags>
-          </to>
-          <container>
-            <jvmFlags>
-              <jvmFlag>-Dserver.port=${PORT}</jvmFlag>
-              <jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>
-            </jvmFlags>
-            <ports>
-              <port>8080</port>
-            </ports>
-          </container>
+            <to>
+                <!-- The image path is configured via a system property in the build command -->
+                <image>${image}</image>
+            </to>
         </configuration>
       </plugin>
     </plugins>
